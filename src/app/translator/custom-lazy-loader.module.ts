@@ -5,7 +5,6 @@ import {
   TranslateLoader,
   TranslateModule,
   TranslateModuleConfig,
-  TranslateParser,
 } from '@ngx-translate/core';
 import { CustomLazyLoader } from './custom-lazy-loader';
 import { CustomMissingTranslationHandler } from './custom-missing-translation-handler';

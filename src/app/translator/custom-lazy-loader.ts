@@ -11,7 +11,8 @@ export class CustomLazyLoader implements TranslateLoader {
   getTranslation(lang: string): Observable<any> {
     const requests: Observable<Object | {}>[] = this._resourcesPrefix.map(
       (resource) => {
-        let path = `${resource}${lang}.json`;
+        const separator = resource.charAt(resource.length-1)==='/' ? '' : '/';
+        const path = `${resource}${separator}${lang}.json`;
         return new HttpClient(this._handler).get(path).pipe(
           catchError(() => {
             return of({});
@@ -21,8 +22,7 @@ export class CustomLazyLoader implements TranslateLoader {
     );
     const fork = forkJoin(requests).pipe(
       map((response) => {
-        var flatted = response.reduce((acc, key) => this.mergeDeep(acc, key), {});
-        console.log(flatted)
+        const flatted = response.reduce((acc, key) => this.mergeDeep(acc, key), {});        
         return flatted;
       }));
     return fork;
@@ -34,18 +34,17 @@ export class CustomLazyLoader implements TranslateLoader {
       Object.keys(source).forEach((key: any) => {
         if (this.isObject(source[key])) {
           if (!(key in target)) {
-            Object.assign(output, { [key]: source[key] });
+            Object.assign(output, {[key]: source[key]});
           } else {
             output[key] = this.mergeDeep(target[key], source[key]);
           }
         } else {
-          Object.assign(output, { [key]: source[key] });
+          Object.assign(output, {[key]: source[key]});
         }
       });
     }
     return output;
   }
-
   isObject(item: any): boolean {
     return (item && typeof item === 'object' && !Array.isArray(item));
   }
