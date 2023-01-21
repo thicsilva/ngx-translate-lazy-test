@@ -15,6 +15,7 @@
     "@ngx-translate/core": "12.1.2",
     "@ngx-translate/http-loader": "4.0.0",
     "core-js": "^2.5.7",
+    "deepmerge": "^4.2.2",
     "rxjs": "6.5.5",
     "tslib": "1.13.0",
     "zone.js": "0.10.3"

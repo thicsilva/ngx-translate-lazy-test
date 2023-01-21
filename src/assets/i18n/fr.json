@@ -3,7 +3,7 @@
     "TITLE": "Bonjour Angular avec ngx-translate !",
     "SELECT": "Changer la langue"
   },
-  "SHARED-VIEW": {
-    "TITLE": "Module partagé avec ngx-translate !"
+  "VIEW": {
+    "SHARED": "Module partagé avec ngx-translate !"
   }
 }

@@ -11,11 +11,13 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 }
 
 export function ApplicationInitializerFactory(
-  translate: TranslateService, injector: Injector) {
+  translate: TranslateService,
+  injector: Injector
+) {
   return async () => {
     await injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
 
-    const deaultLang = 'fr';
+    const deaultLang = 'en';
     translate.addLangs(['en', 'fr']);
     translate.setDefaultLang(deaultLang);
     try {

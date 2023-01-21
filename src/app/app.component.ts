@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,7 @@ import {TranslateService} from '@ngx-translate/core';
           <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
         </select>
       </label>
+      <p>{{primeng.contains | translate }} </p>
     </div>
     <br />
     <a routerLink="data-view">To child module</a>
@@ -20,7 +21,7 @@ import {TranslateService} from '@ngx-translate/core';
   `,
 })
 export class AppComponent {
-  selected = 'fr';
+  selected = 'en';
 
   constructor(public translate: TranslateService) {
     translate.addLangs(['en', 'fr']);
@@ -32,6 +33,7 @@ export class AppComponent {
 
   onChange() {
     console.log(`language changed`, this.selected);
-    this.translate.use(this.selected)
+    console.log(this.translate.translations);
+    this.translate.use(this.selected);
   }
 }
