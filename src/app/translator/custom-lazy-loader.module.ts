@@ -6,17 +6,17 @@ import {
   TranslateModule,
   TranslateModuleConfig,
 } from '@ngx-translate/core';
-import { CustomLazyLoader, ITranslationResource } from './custom-lazy-loader';
+import { CustomLazyLoader } from './custom-lazy-loader';
 import { CustomMissingTranslationHandler } from './custom-missing-translation-handler';
 
 export function loaderFactory(
-  resources: string[] | ITranslationResource[]
+  resources: string[] 
 ): (http: HttpBackend) => TranslateLoader {
   return (http: HttpBackend) => new CustomLazyLoader(http, resources);
 }
 
 export function translateConfig(
-  resources: string[] | ITranslationResource[]
+  resources: string[] 
 ): TranslateModuleConfig {
   return {
     useDefaultLang: false,
@@ -31,25 +31,26 @@ export function translateConfig(
 @NgModule()
 export class CustomLazyLoaderModule {
   static forRoot(
-    resources: string[] | ITranslationResource[],
+    resources: string[],
     config?: TranslateModuleConfig
   ): ModuleWithProviders<TranslateModule> {
     return TranslateModule.forRoot({
       ...translateConfig(resources),
       ...config,
+      isolate: false,
     });
   }
   static forChild(
-    resources: string[] | ITranslationResource[],
+    resources: string[],
     config?: TranslateModuleConfig
   ): ModuleWithProviders<TranslateModule> {
     return TranslateModule.forChild({
       ...translateConfig(resources),
       extend: true,
-      // missingTranslationHandler: {
-      //   provide: MissingTranslationHandler,
-      //   useClass: CustomMissingTranslationHandler,
-      // },
+      missingTranslationHandler: {
+        provide: MissingTranslationHandler,
+        useClass: CustomMissingTranslationHandler,
+      },
       ...config,
     });
   }

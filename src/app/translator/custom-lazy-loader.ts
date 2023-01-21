@@ -4,41 +4,49 @@ import deepmerge from 'deepmerge';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-export interface ITranslationResource {
-  prefix: string;
-  suffix?: string;
-  optional?: boolean;
-}
-
-export class CustomLazyLoader implements TranslateLoader {
+export class CustomLazyLoader implements TranslateLoader {  
   constructor(
     private _handler: HttpBackend,
-    private _resourcesPrefix: string[] | ITranslationResource[]
-  ) {}
+    private _resourcesPrefix: string[]
+  ) { }
   getTranslation(lang: string): Observable<any> {
     const requests: Observable<Object | {}>[] = this._resourcesPrefix.map(
       (resource) => {
-        let path: string;
-        if (resource.prefix)
-          path = `${resource.prefix}${lang}${resource.suffix || '.json'}`;
-        else path = `${resource}${lang}.json`;
+        let path = `${resource}${lang}.json`;
 
         return new HttpClient(this._handler).get(path).pipe(
-          catchError((res) => {
-            if (!resource.optional) {
-              console.group();
-              console.error(
-                'Something went wrong for the following translation file:',
-                path
-              );
-              console.error(res.message);
-              console.groupEnd();
-            }
+          catchError(() => {
             return of({});
           })
         );
       }
     );
-    return forkJoin(requests).pipe(map((response) => deepmerge(response, [])));
+    const fork = forkJoin(requests).pipe(map((response) => {
+      var flatted = response.reduce((acc,key)=> this.mergeDeep(acc,key),{});             
+      return flatted;
+    }));    
+    return fork;
+  }
+
+  mergeDeep(target: any, source: any): any {
+    let output = Object.assign({}, target);
+    if (this.isObject(target) && this.isObject(source)) {
+      Object.keys(source).forEach((key: any) => {
+        if (this.isObject(source[key])) {
+          if (!(key in target)) {
+            Object.assign(output, { [key]: source[key] });
+          } else {
+            output[key] = this.mergeDeep(target[key], source[key]);
+          }
+        } else {
+          Object.assign(output, { [key]: source[key] });
+        }
+      });
+    }
+    return output;
+  }
+
+  isObject(item: any): boolean {
+    return (item && typeof item === 'object' && !Array.isArray(item));
   }
 }

@@ -25,19 +25,11 @@ export function createTranslateLoader(http: HttpClient) {
     CommonModule,
     SharedModule,
     FeatureRoutingModule,
-    CustomLazyLoaderModule.forChild(['./assets/i18n/feature']),
+    CustomLazyLoaderModule.forChild(['./assets/i18n/feature/']),
   ],
   declarations: [DataViewComponent],
   providers: [],
   exports: [],
 })
 export class FeatureModule {
-  constructor(public translationService: TranslateService) {
-    this.translationService.store.onLangChange.subscribe(
-      (lang: LangChangeEvent) => {
-        console.log(' ==> FeatureModule ', lang);
-        this.translationService.use(lang.lang);
-      }
-    );
-  }
 }

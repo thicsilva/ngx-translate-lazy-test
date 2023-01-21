@@ -17,12 +17,5 @@ const SHARED_MODULES = [CommonModule];
   providers: [],
 })
 export class SharedModule {
-  constructor(public translationService: TranslateService) {
-    this.translationService.store.onLangChange.subscribe(
-      (lang: LangChangeEvent) => {
-        console.log(' ==> FeatureModule ', lang);
-        this.translationService.use(lang.lang);
-      }
-    );
-  }
+
 }
