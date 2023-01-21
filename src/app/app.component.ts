@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
         </select>
       </label>
       <p *ngFor="let value of getPrimeValues()">{{ 'primeng.'+value | translate }} </p>
-      <p>{{'VIEW.FEATURE' | translate}}</p>
+      <p>{{'VIEW.CHILDFEATURE' | translate}}</p>
     </div>
     <br />
     <a routerLink="data-view">To child module</a>
