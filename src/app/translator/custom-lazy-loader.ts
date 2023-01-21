@@ -1,6 +1,5 @@
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { TranslateLoader } from '@ngx-translate/core';
-import deepmerge from 'deepmerge';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
