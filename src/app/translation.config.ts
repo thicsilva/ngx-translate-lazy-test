@@ -17,11 +17,11 @@ export function ApplicationInitializerFactory(
   return async () => {
     await injector.get(LOCATION_INITIALIZED, Promise.resolve(null));
 
-    const deaultLang = 'en';
-    translate.addLangs(['en', 'fr']);
+    const deaultLang = 'pt';
+    translate.addLangs(['pt', 'en']);
     translate.setDefaultLang(deaultLang);
     try {
-      await translate.use(deaultLang).toPromise();
+      translate.use(deaultLang);
     } catch (err) {
       console.log(err);
     }

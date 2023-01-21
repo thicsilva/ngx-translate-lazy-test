@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedViewComponent } from './shared-view/shared-view.component';
-import {
-  TranslateModule,
-  TranslateService,
-  LangChangeEvent,
-} from '@ngx-translate/core';
+import { CustomLazyLoaderModule } from '../translator/custom-lazy-loader.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 const COMPONENTS = [SharedViewComponent];
 const SHARED_MODULES = [CommonModule];

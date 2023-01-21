@@ -31,6 +31,7 @@ import { CustomLazyLoaderModule } from './translator/custom-lazy-loader.module';
     CustomLazyLoaderModule.forRoot([
       './assets/i18n/',
       './assets/i18n/primeng/',
+      './assets/i18n/shared/'
     ]),
   ],
   providers: [
@@ -40,6 +41,7 @@ import { CustomLazyLoaderModule } from './translator/custom-lazy-loader.module';
       deps: [TranslateService, Injector],
       multi: true,
     },
+    HttpClient
   ],
   bootstrap: [AppComponent],
 })

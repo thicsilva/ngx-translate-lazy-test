@@ -12,7 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
           <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
         </select>
       </label>
-      <p>{{'primeng.contains' | translate }} </p>
+      <p *ngFor="let value of getPrimeValues()">{{ 'primeng.'+value | translate }} </p>
+      <p>{{'VIEW.FEATURE' | translate}}</p>
     </div>
     <br />
     <a routerLink="data-view">To child module</a>
@@ -21,18 +22,18 @@ import { TranslateService } from '@ngx-translate/core';
   `,
 })
 export class AppComponent {
-  selected = 'en';
+  selected = 'pt';  
 
   constructor(public translate: TranslateService) {
-    translate.addLangs(['en', 'fr']);
-    //translate.setDefaultLang('en');
-
-    //const browserLang = translate.getBrowserLang();
-    //translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    translate.addLangs(['pt', 'en']);    
   }
 
   onChange() {
     console.log(`language changed`, this.selected);    
     this.translate.use(this.selected);
+  }
+
+  getPrimeValues():string[]{
+    return ['startsWith', 'contains', 'notContains']    
   }
 }

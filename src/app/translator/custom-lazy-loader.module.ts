@@ -5,6 +5,7 @@ import {
   TranslateLoader,
   TranslateModule,
   TranslateModuleConfig,
+  TranslateParser,
 } from '@ngx-translate/core';
 import { CustomLazyLoader } from './custom-lazy-loader';
 import { CustomMissingTranslationHandler } from './custom-missing-translation-handler';
@@ -12,7 +13,10 @@ import { CustomMissingTranslationHandler } from './custom-missing-translation-ha
 export function loaderFactory(
   resources: string[] 
 ): (http: HttpBackend) => TranslateLoader {
-  return (http: HttpBackend) => new CustomLazyLoader(http, resources);
+  return (http: HttpBackend) => {
+    console.log(resources);
+    return new CustomLazyLoader(http, resources)
+  };
 }
 
 export function translateConfig(
@@ -24,7 +28,7 @@ export function translateConfig(
       provide: TranslateLoader,
       useFactory: loaderFactory(resources),
       deps: [HttpBackend],
-    },
+    }
   };
 }
 

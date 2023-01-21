@@ -3,7 +3,7 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
-export class CustomLazyLoader implements TranslateLoader {  
+export class CustomLazyLoader implements TranslateLoader {
   constructor(
     private _handler: HttpBackend,
     private _resourcesPrefix: string[]
@@ -12,7 +12,6 @@ export class CustomLazyLoader implements TranslateLoader {
     const requests: Observable<Object | {}>[] = this._resourcesPrefix.map(
       (resource) => {
         let path = `${resource}${lang}.json`;
-
         return new HttpClient(this._handler).get(path).pipe(
           catchError(() => {
             return of({});
@@ -20,10 +19,12 @@ export class CustomLazyLoader implements TranslateLoader {
         );
       }
     );
-    const fork = forkJoin(requests).pipe(map((response) => {
-      var flatted = response.reduce((acc,key)=> this.mergeDeep(acc,key),{});             
-      return flatted;
-    }));    
+    const fork = forkJoin(requests).pipe(
+      map((response) => {
+        var flatted = response.reduce((acc, key) => this.mergeDeep(acc, key), {});
+        console.log(flatted)
+        return flatted;
+      }));
     return fork;
   }
 
