@@ -12,8 +12,9 @@ import { TranslateService } from '@ngx-translate/core';
           <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
         </select>
       </label>
+      <h3>{{'HOME.PRIMENG' | translate}}</h3>
       <p *ngFor="let value of getPrimeValues()">{{ 'primeng.'+value | translate }} </p>
-      <p>{{'VIEW.CHILDFEATURE' | translate}}</p>
+      <h4>{{'VIEW.CHILDFEATURE' | translate}}</h4>
     </div>
     <br />
     <a routerLink="data-view">To child module</a>
@@ -34,6 +35,6 @@ export class AppComponent {
   }
 
   getPrimeValues():string[]{
-    return ['startsWith', 'contains', 'notContains']    
+    return ['startsWith', 'contains', 'notContains', 'accept', 'passwordPrompt']    
   }
 }

@@ -1,6 +1,7 @@
 {
   "HOME": {
     "TITLE": "Olá Angular com ngx-translate !",
-    "SELECT": "Escolha o idioma"
+    "SELECT": "Escolha o idioma",
+    "PRIMENG": "Alguns valores do primeng"
   }
 }

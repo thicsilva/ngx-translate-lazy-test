@@ -1,6 +1,6 @@
 {
   "VIEW": {
     "TITLE": "Child module with ngx-translate!",
-    "CHILDFEATURE": "Any content of the child module"
+    "CHILDFEATURE": "Any content of the child module (loaded when child is loaded)"
   }
 }
